@@ -21,7 +21,7 @@
                 // app to direct to youtube application, last part of link can be;
                 // video: watch?v=your_id
                 // channel: channel/your_id
-                app = "vnd.youtube://channel/"+"channelId";
+                app = "vnd.youtube://channel/"+channelId;
 
                 if( /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
                     window.location = app;
