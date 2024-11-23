@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            window.onload = function() {
+
+                var urlParams = new URLSearchParams(window.location.search);
+                var channelId = urlParams.get('c');
+                
+                // Check if a channel ID exists, otherwise use a default value
+                if (!channelId) {
+                    channelId = "wheelsonweekends";  // Default channel ID
+                }
+
+                // fallback link in case user doesn't have the app or opens link on desktop
+                var fallback = "https://www.youtube.com/@"+channelId,
+                // app to direct to youtube application, last part of link can be;
+                // video: watch?v=your_id
+                // channel: channel/your_id
+                app = "vnd.youtube://channel/"+"channelId";
+
+                if( /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+                    window.location = app;
+                    window.setTimeout(function() {
+                        // couldn't open app, open fallback url
+                        window.location = fallback;
+                    }, 25);
+                } else {
+                    // open url because device doesn't support youtube app
+                    window.location = fallback;
+                }
+
+                function killPopup() {
+                    window.removeEventListener('pagehide', killPopup);
+                }
+
+                window.addEventListener('pagehide', killPopup);
+            };
+        </script>
+    </body>
+</html>
